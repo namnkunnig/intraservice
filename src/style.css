@@ -31,10 +31,38 @@
   display: none;
 }
 
-.button {
+.submit-button {
   width: 5rem;
 }
 
 .visible {
   display: block;
+}
+
+.list li {
+  line-height: 1.5;
+}
+
+.selected {
+  border: 1px solid grey;
+  padding: 0 1rem;
+  list-style: none;
+}
+
+.selected li {
+  display: flex;
+  line-height: 2;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.selected button {
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  color: black;
+}
+
+.selected:empty {
+  border: none;
 }
