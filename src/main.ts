@@ -1,24 +1,35 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import "./style.css";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const options = getOptions();
+const areas = document.querySelector(".areas");
+const list = document.querySelector(".list");
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+if (list && options) {
+  const test = options.map((option) => {
+    return `<li>${option}</li>`;
+  });
+  list.innerHTML = test.join("");
+}
+
+areas?.addEventListener("click", toggleList);
+areas?.addEventListener("change", filterList);
+
+function toggleList() {
+  list?.classList.toggle("visible");
+}
+
+function filterList() {
+  return;
+}
+
+function getOptions(): string[] {
+  return [
+    "Förskola och utbildning",
+    "Litteratur och bibliotek",
+    "Stadsutveckling",
+    "Motion och idrott",
+    "Trafik och gator",
+    "Arbetsliv och jobb",
+    "Kommun och politik",
+  ];
+}
