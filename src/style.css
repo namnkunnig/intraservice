@@ -81,3 +81,9 @@
 .entry {
   display: none;
 }
+
+.error {
+  font-size: small;
+  color: brown;
+  display: none;
+}

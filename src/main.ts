@@ -8,25 +8,41 @@ const selected = document.querySelector(".selected");
 const submit = document.querySelector(".submit");
 const result = document.querySelector(".result");
 const entry = document.querySelector(".entry");
+const error = document.querySelector(".error");
 
 areas?.addEventListener("click", toggleList);
 areas?.addEventListener("input", filterList);
-areas?.addEventListener("onblur", toggleList);
 list?.addEventListener("click", handleSelect);
 selected?.addEventListener("click", handleDeselect);
 submit?.addEventListener("click", handleSubmit);
 areas?.setAttribute("autocomplete", "off");
+window.addEventListener("click", closeList);
 
 function handleSubmit() {
   if (!form || !result) return;
   const element = form as HTMLFormElement;
+
   const valid = element.checkValidity();
+  if (!valid) {
+    return;
+  }
+
+  const areasValid = checkSelectedAreas();
+  if (!areasValid) {
+    return;
+  }
+
   result?.classList.toggle("visible");
   entry?.classList.toggle("visible");
   console.log(valid);
 }
 
-function toggleList() {
+function closeList() {
+  list?.classList.remove("visible");
+}
+
+function toggleList(event?: Event) {
+  event?.stopPropagation();
   resetList();
   list?.classList.toggle("visible");
 }
@@ -44,7 +60,10 @@ function filterList({ target }: Event) {
   list.innerHTML = filteredOptions?.join("");
 }
 
-function handleSelect({ target }: Event) {
+function handleSelect(event: Event) {
+  event.stopPropagation();
+  const { target } = event;
+
   const { textContent: foo } = target as HTMLLIElement;
   const bar = Array.from(selected?.childNodes.values() || []);
   const trash = "X";
@@ -58,6 +77,8 @@ function handleSelect({ target }: Event) {
   }
   clearAreaInput();
   toggleList();
+  const errorElement = error as HTMLInputElement;
+  errorElement.classList.remove("visible");
 }
 
 function handleDeselect({ target }: Event) {
@@ -80,6 +101,19 @@ function resetList() {
       return `<li>${option}</li>`;
     })
     .join("");
+}
+
+function checkSelectedAreas() {
+  if (!selected || !areas) return;
+  const element = selected as HTMLInputElement;
+  const itemsSelected = element.childElementCount !== 0;
+  const errorElement = error as HTMLInputElement;
+
+  if (!itemsSelected) {
+    errorElement.classList.toggle("visible");
+    return false;
+  }
+  return true;
 }
 
 function getOptions(): string[] {
