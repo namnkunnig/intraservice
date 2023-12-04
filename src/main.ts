@@ -1,3 +1,4 @@
+import { doc } from "prettier";
 import "./style.css";
 
 const options = getOptions();
@@ -9,6 +10,7 @@ const submit = document.querySelector(".submit");
 const result = document.querySelector(".result");
 const entry = document.querySelector(".entry");
 const error = document.querySelector(".error");
+const registered = document.querySelector(".registered-areas");
 
 areas?.addEventListener("click", toggleList);
 areas?.addEventListener("input", filterList);
@@ -19,7 +21,7 @@ areas?.setAttribute("autocomplete", "off");
 window.addEventListener("click", closeList);
 
 function handleSubmit() {
-  if (!form || !result) return;
+  if (!form || !result || !registered) return;
   const element = form as HTMLFormElement;
 
   const valid = element.checkValidity();
@@ -31,10 +33,15 @@ function handleSubmit() {
   if (!areasValid) {
     return;
   }
-
+  const children = selected?.children || [];
+  for (let child of children) {
+    const li = document.createElement("li");
+    const text = document.createTextNode(child.textContent?.slice(0, -1) || "");
+    li.appendChild(text);
+    registered.appendChild(li);
+  }
   result?.classList.toggle("visible");
   entry?.classList.toggle("visible");
-  console.log(valid);
 }
 
 function closeList() {
