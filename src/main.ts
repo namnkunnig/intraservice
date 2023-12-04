@@ -1,23 +1,33 @@
 import "./style.css";
 
 const options = getOptions();
+const form = document.querySelector(".form");
 const areas = document.querySelector(".areas");
 const list = document.querySelector(".list");
 const selected = document.querySelector(".selected");
-
-if (list && options) {
-  const test = options.map((option) => {
-    return `<li>${option}</li>`;
-  });
-  list.innerHTML = test.join("");
-}
+const submit = document.querySelector(".submit");
+const result = document.querySelector(".result");
+const entry = document.querySelector(".entry");
 
 areas?.addEventListener("click", toggleList);
 areas?.addEventListener("input", filterList);
+areas?.addEventListener("onblur", toggleList);
 list?.addEventListener("click", handleSelect);
 selected?.addEventListener("click", handleDeselect);
+submit?.addEventListener("click", handleSubmit);
+areas?.setAttribute("autocomplete", "off");
+
+function handleSubmit() {
+  if (!form || !result) return;
+  const element = form as HTMLFormElement;
+  const valid = element.checkValidity();
+  result?.classList.toggle("visible");
+  entry?.classList.toggle("visible");
+  console.log(valid);
+}
 
 function toggleList() {
+  resetList();
   list?.classList.toggle("visible");
 }
 
@@ -61,6 +71,15 @@ function clearAreaInput() {
   if (!areas) return;
   const element = areas as HTMLInputElement;
   element.value = "";
+}
+
+function resetList() {
+  if (!list) return;
+  list.innerHTML = options
+    .map((option) => {
+      return `<li>${option}</li>`;
+    })
+    .join("");
 }
 
 function getOptions(): string[] {

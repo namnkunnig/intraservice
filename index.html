@@ -7,31 +7,45 @@
   </head>
   <body>
     <main id="app">
-      <form onsubmit="handlers.ts" class="form">
-        <fieldset class="fieldset">
-          <legend>Personuppgifter</legend>
-          <div>
-            <label for="name" class="label"> Namn* </label>
-            <input id="name" name="name" type="text" required />
-          </div>
-          <div>
-            <label for="email" class="label"> E-post* </label>
-            <input id="email" name="email" type="email" required />
-          </div>
-        </fieldset>
-        <fieldset class="fieldset">
-          <legend>Områden</legend>
-          <div>
-            <label for="areas" class="label">
-              Välj ett eller flera områden*
-            </label>
-            <input id="areas" name="areas" class="areas" />
-            <ul id="list" class="list"></ul>
-          </div>
-          <ul class="selected"></ul>
-        </fieldset>
-        <button type="submit" class="button">Skicka in</button>
-      </form>
+      <section class="visible entry">
+        <form class="form" onsubmit="return false">
+          <fieldset class="fieldset">
+            <legend>Personuppgifter</legend>
+            <div>
+              <label for="name" class="label"> Namn* </label>
+              <input id="name" name="name" type="text" required />
+            </div>
+            <div>
+              <label for="email" class="label"> E-post* </label>
+              <input id="email" name="email" type="email" required />
+            </div>
+          </fieldset>
+          <fieldset class="fieldset">
+            <legend>Områden</legend>
+            <div>
+              <label for="areas" class="label">
+                Välj ett eller flera områden*
+              </label>
+              <input id="areas" name="areas" class="areas" />
+              <ul id="list" class="list"></ul>
+            </div>
+            <ul class="selected"></ul>
+          </fieldset>
+          <button type="submit" class="submit">Skicka in</button>
+        </form>
+      </section>
+      <section class="result">
+        <h1>Du har registrerat följande uppgifter:</h1>
+        <div>
+          <label>Namn: </label>
+          <span id="registered-name">Foo</span>
+        </div>
+        <div>
+          <label>E-post: </label>
+          <span id="registered-email">Bar</span>
+        </div>
+        <ul id="registreda-areas" class=""></ul>
+      </section>
     </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
