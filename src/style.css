@@ -34,6 +34,7 @@
 .submit {
   margin: 2px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .visible {
@@ -95,4 +96,5 @@
 
 input {
   width: 100%;
+  box-sizing: border-box;
 }
