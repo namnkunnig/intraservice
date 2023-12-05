@@ -1,5 +1,5 @@
 .form {
-  width: 20rem;
+  width: 15rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -31,8 +31,9 @@
   display: none;
 }
 
-.submit-button {
-  width: 5rem;
+.submit {
+  margin: 2px;
+  width: 100%;
 }
 
 .visible {
@@ -90,4 +91,8 @@
 
 .registered-areas {
   margin: 0;
+}
+
+input {
+  width: 100%;
 }
