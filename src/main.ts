@@ -10,6 +10,7 @@ const result = document.querySelector(".result");
 const entry = document.querySelector(".entry");
 const error = document.querySelector(".error");
 const registered = document.querySelector(".registered-areas");
+const intro = document.querySelector(".intro");
 
 areas?.addEventListener("click", toggleList);
 areas?.addEventListener("input", filterList);
@@ -39,6 +40,8 @@ function handleSubmit() {
     li.appendChild(text);
     registered.appendChild(li);
   }
+
+  intro?.classList.toggle("visible");
   result?.classList.toggle("visible");
   entry?.classList.toggle("visible");
 }
@@ -59,7 +62,7 @@ function filterList({ target }: Event) {
   const query = element.value;
 
   const filteredOptions = options
-    .filter((option) => option.includes(query))
+    .filter((option) => option.toLowerCase().includes(query.toLowerCase()))
     .map((option) => {
       return `<li>${option}</li>`;
     });
@@ -70,16 +73,16 @@ function handleSelect(event: Event) {
   event.stopPropagation();
   const { target } = event;
 
-  const { textContent: foo } = target as HTMLLIElement;
-  const bar = Array.from(selected?.childNodes.values() || []);
+  const { textContent: selectedArea } = target as HTMLLIElement;
+  const selectableAreas = Array.from(selected?.childNodes.values() || []);
   const trash = "X";
 
-  const notAlreadySelcted = !bar.some((item) => {
-    return item.textContent?.replace(trash, "") === foo;
+  const notAlreadySelcted = !selectableAreas.some((item) => {
+    return item.textContent?.replace(trash, "") === selectedArea;
   });
 
   if (notAlreadySelcted && selected) {
-    selected.innerHTML += `<li>${foo}<button data-identifier="${foo}" type="button">${trash}</button></li>`;
+    selected.innerHTML += `<li>${selectedArea}<button data-identifier="${selectedArea}" type="button">${trash}</button></li>`;
   }
   clearAreaInput();
   toggleList();
